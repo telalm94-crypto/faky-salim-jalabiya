@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>فكي سليم جلابية</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand-box">
+        <img src="images/faky2.jpg" alt="صاحب موقع الفكي سليم للجلابيب" class="owner-avatar" />
+        <div>
+          <h1 class="brand-name">فكي سليم جلابية</h1>
+          <p class="brand-tagline">أناقة الأصالة وجودة القماش</p>
+        </div>
+      </div>
+      <button id="openCartBtn" class="cart-btn" type="button">
+        السلة (<span id="cartCount">0</span>)
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h2>تشكيلة الجلاليب والعلي الله</h2>
+      <p>أرقى الجلاليب السودانية بخامات مختارة وتفصيل متقن — اختر القماش والمقاس واللون المناسب، وأرسل طلبك مباشرة عبر واتساب.</p>
+      <div class="store-location-badge">
+        📍 موقعنا: <strong>أم درمان — الهجرة جوار مطعم كوجاك</strong>
+      </div>
+    </section>
+
+    <section class="guide-banner" aria-label="طريقة استخدام الموقع">
+      <div class="guide-badge">إعلان للعملاء • كيف تطلب بكل سهولة؟</div>
+      <div class="guide-steps">
+        <div class="guide-step">
+          <span class="step-num">1</span>
+          <div>
+            <strong>اختر الجلابية والمقاس واللون</strong>
+            <p>تصفح الأقمشة (قطن، سلك، توتل) وحدد المقاس واللون المناسب لك.</p>
+          </div>
+        </div>
+        <div class="guide-step">
+          <span class="step-num">2</span>
+          <div>
+            <strong>أضف إلى السلة وراجع طلبك</strong>
+            <p>يمكنك إضافة أكثر من جلابية وحذف أي عنصر قبل إتمام الطلب.</p>
+          </div>
+        </div>
+        <div class="guide-step">
+          <span class="step-num">3</span>
+          <div>
+            <strong>حدد المدينة وأرسل عبر واتساب</strong>
+            <p>سيُحسب التوصيل والإجمالي تلقائياً ويُفتح واتساب برسالة طلبك جاهزة.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="filters" aria-label="تصفية حسب القماش">
+      <button class="filter-btn active" data-fabric="all">الكل</button>
+      <button class="filter-btn" data-fabric="قطن">قطن</button>
+      <button class="filter-btn" data-fabric="سلك">سلك</button>
+      <button class="filter-btn" data-fabric="توتل">توتل</button>
+    </section>
+
+    <section id="productsGrid" class="products-grid" aria-live="polite"></section>
+  </main>
+
+  <!-- نافذة السلة وإتمام الطلب -->
+  <div id="cartModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="cartTitle">سلة المشتريات</h3>
+        <button id="closeCartBtn" class="close-btn" type="button" aria-label="إغلاق">✕</button>
+      </div>
+
+      <div id="cartItems" class="cart-items"></div>
+
+      <div class="cart-summary">
+        <p>قيمة الجلاليب: <strong id="cartSubtotal">0</strong> <span id="cartCurrency1">ج.س</span></p>
+        <p>رسوم التوصيل: <strong id="deliveryFee">0</strong> <span id="cartCurrency2">ج.س</span></p>
+        <p style="font-size:1.2rem;color:#1b4332;margin-top:4px;">
+          الإجمالي النهائي: <strong id="cartTotal">0</strong> <span id="cartCurrency3">ج.س</span>
+        </p>
+      </div>
+
+      <form id="orderForm" class="order-form">
+        <h4>بيانات التوصيل</h4>
+        <label>
+          الاسم الكامل
+          <input type="text" id="customerName" required placeholder="أدخل اسمك الكامل" />
+        </label>
+        <label>
+          رقم الهاتف / واتساب
+          <input type="tel" id="customerPhone" required placeholder="مثال: 09xxxxxxxx" />
+        </label>
+        <label>
+          المدينة / المنطقة
+          <select id="customerCity" required>
+            <option value="">-- اختر المدينة --</option>
+            <option value="أم درمان">أم درمان</option>
+            <option value="الخرطوم">الخرطوم</option>
+            <option value="بحري">بحري</option>
+            <option value="بورتسودان">بورتسودان</option>
+            <option value="مدني">مدني</option>
+            <option value="عطبرة">عطبرة</option>
+            <option value="أخرى">مدينة أخرى</option>
+          </select>
+        </label>
+        <label>
+          تفاصيل الحي / العنوان
+          <input type="text" id="customerAddress" required placeholder="مثال: الثورة الحارة 10 / السوق الشعبي" />
+        </label>
+
+        <h4>قياسات العميل (اختياري — للتفصيل أو الدقة)</h4>
+        <div class="measurements-grid">
+          <label>
+            الطول
+            <input type="text" id="measureLength" placeholder="مثال: 56 أو 142 سم" />
+          </label>
+          <label>
+            الصدر / العرض
+            <input type="text" id="measureChest" placeholder="مثال: 24 بوصة" />
+          </label>
+          <label>
+            طول الكم / الكتف
+            <input type="text" id="measureSleeve" placeholder="مثال: 25 بوصة" />
+          </label>
+        </div>
+
+        <label>
+          ملاحظات إضافية (اختياري)
+          <textarea id="customerNotes" rows="2" placeholder="أي تفاصيل إضافية عن المقاس أو التوصيل..."></textarea>
+        </label>
+        <button type="submit" class="submit-order-btn">إرسال الطلب عبر واتساب</button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>© <span id="year"></span> فكي سليم جلابية — جميع الحقوق محفوظة</p>
+      <p><strong>متجر فكي سليم جلابية</strong> — أناقة الأصالة وجودة القماش</p>
+      <p class="footer-address">📍 العنوان: أم درمان — الهجرة</p>
+      <a href="https://www.google.com/maps/search/?api=1&query=15.657700%2C32.496857" target="_blank" rel="noopener noreferrer" class="map-link-btn">
+  عرض الموقع على الخريطة
+      </a>
+    </div>
+  </footer>
+
+  <script src="products.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

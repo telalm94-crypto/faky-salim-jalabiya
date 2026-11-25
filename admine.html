@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لوحة الإدارة | الفكي سليم للجلابيب</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .admin-box {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 18px;
+      margin: 18px 0;
+    }
+    .admin-box h2 {
+      color: #1b4332;
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+    }
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .admin-grid label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .admin-grid input, .admin-grid select, .admin-grid textarea {
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+    .admin-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #e5e7eb;
+      gap: 10px;
+    }
+    .export-btn {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      width: 100%;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .reset-btn {
+      background: #6b7280;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: 600;
+      width: 100%;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div>
+        <h1 class="brand-name">لوحة تحكم المتجر</h1>
+        <p class="brand-tagline">إدارة جلاليب الفكي سليم</p>
+      </div>
+      <a href="index.html" class="cart-btn" style="text-decoration:none;">العودة للمتجر</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- شاشة قفل بسيطة بكلمة مرور -->
+    <section id="loginSection" class="admin-box">
+      <h2>تسجيل دخول الإدارة</h2>
+      <div class="admin-grid">
+        <label>
+          كلمة المرور (الافتراضية: 1234)
+          <input type="password" id="adminPassInput" placeholder="أدخل كلمة المرور" />
+        </label>
+        <button type="button" id="loginBtn" class="add-btn">دخول</button>
+      </div>
+    </section>
+
+    <!-- محتوى لوحة التحكم -->
+    <div id="adminPanel" style="display:none;">
+      <section class="admin-box">
+        <h2>+ إضافة جلابية جديدة</h2>
+        <form id="addProductForm" class="admin-grid">
+          <label>
+            اسم الجلابية
+            <input type="text" id="pName" required placeholder="مثال: جلابية قطن سويسري مطرزة" />
+          </label>
+          <label>
+            نوع القماش
+            <input type="text" id="pFabric" required placeholder="مثال: قطن / سلك / توتل" />
+          </label>
+          <label>
+            تفاصيل التطريز / الجبّادور
+            <input type="text" id="pEmbroidery" required placeholder="مثال: تطريز يدوي فاخر" />
+          </label>
+          <label>
+            السعر (ج.س)
+            <input type="number" id="pPrice" required placeholder="مثال: 45000" />
+          </label>
+          <label>
+            المقاسات المتوفرة (افصل بينها بفاصلة)
+            <input type="text" id="pSizes" value="52, 54, 56, 58, 60" required />
+          </label>
+          <label>
+            الألوان المتوفرة (افصل بينها بفاصلة)
+            <input type="text" id="pColors" value="أبيض ناصع, سكري, بيج" required />
+          </label>
+          <label>
+            مسار الصورة داخل مجلد images (أو اختر صورة من الهاتف بالأسفل)
+            <input type="text" id="pImagePath" placeholder="مثال: images/qoton1.jpg" />
+          </label>
+          <label>
+            أو اختر صورة مباشرة من الهاتف (للمعاينة السريعة)
+            <input type="file" id="pImageFile" accept="image/*" />
+          </label>
+          <label>
+            وصف الجلابية
+            <textarea id="pDesc" rows="2" required placeholder="وصف مختصر لجودة القماش والخياطة..."></textarea>
+          </label>
+          <button type="submit" class="add-btn">حفظ وإضافة للمتجر</button>
+        </form>
+      </section>
+
+      <section class="admin-box">
+        <h2>المنتجات الحالية (<span id="adminCount">0</span>)</h2>
+        <div id="adminProductsList"></div>
+
+        <button type="button" id="exportBtn" class="export-btn">
+          نسخ كود products.js المحدّث (للنشر على الإنترنت)
+        </button>
+        <button type="button" id="resetBtn" class="reset-btn">
+          استعادة المنتجات الأصلية من ملف products.js
+        </button>
+      </section>
+    </div>
+  </main>
+
+  <script src="products.js"></script>
+  <script src="admine.js"></script>
+</body>
+</html>
